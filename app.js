@@ -4,7 +4,7 @@ require("dotenv").config()
 const jwt = require("jsonwebtoken")
 let bodyParser = require("body-parser")
 let routes = require("./routes/route")
-require("./config/passport")
+
 
 // Mongoose connection
 mongoose.set("strictQuery",false)
@@ -13,6 +13,8 @@ main().catch((err)=>console.log(err))
 async function main(){
     await mongoose.connect(mongoDB)
 }
+
+
 
 const app = express()
 
