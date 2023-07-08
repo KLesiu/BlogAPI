@@ -1,9 +1,10 @@
 const express = require("express")
 const mongoose=require("mongoose")
 require("dotenv").config()
-
+const jwt = require("jsonwebtoken")
+let bodyParser = require("body-parser")
 let routes = require("./routes/route")
-
+require("./config/passport")
 
 // Mongoose connection
 mongoose.set("strictQuery",false)
@@ -14,6 +15,9 @@ async function main(){
 }
 
 const app = express()
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json())
 
 routes(app)
 
