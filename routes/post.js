@@ -1,8 +1,11 @@
-const jwtAuth = require("../middlewares/auth")
+const jwtAuth = require("../middlewares/auth").middlewareAuth
 const Router = require("express").Router()
 const postController = require("../controllers/postController")
 
 
+
 Router.get('/posts',postController.get_posts)
+Router.get('/posts/:id',postController.get_post)
+Router.post('/posts/create',jwtAuth,postController.create_post)
 
 module.exports=Router
