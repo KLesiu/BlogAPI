@@ -20,6 +20,7 @@ exports.get_post=async(req,res,next)=>{
     return res.status(200).json(post)
 }
 
+
 exports.create_post=[
     body("title","Title is required").trim().isLength({min:1}).escape(),
     body('body','Body is required').isLength({min:1}),
@@ -34,5 +35,23 @@ exports.create_post=[
         const published = req.body.published
         const post = await new Post({title:title,body:body,published:published}).save()
         return res.json(post)
+    })
+]
+
+exports.update_post=[
+    body("title","Title is required").trim().isLength({min:1}).escape(),
+    body('body','Body is required').isLength({min:1}),
+    body('published','Published checkbox is required').isBoolean(),
+    asyncHandler(async(req,res,next)=>{
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            return res.json(errors.array())
+        }
+        const title = req.body.title
+        const body = req.body.body
+        const published = req.body.published
+        const post = new Post({title:title,body:body,published:published,_id:req.params.id})
+        await Post.findByIdAndUpdate(req.params.id,post)
+        return res.status(200).json({post,message:"Post updated!"})
     })
 ]
