@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken")
 let bodyParser = require("body-parser")
 let routes = require("./routes/auth")
 let auth = require('./routes/auth')
+const passportConfig = require('./config/passport').passportConfig()
 
 // Mongoose connection
 mongoose.set("strictQuery",false)
@@ -14,6 +15,7 @@ async function main(){
     await mongoose.connect(mongoDB)
 }
 
+passportConfig
 
 
 const app = express()

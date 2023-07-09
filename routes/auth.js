@@ -1,8 +1,10 @@
 const Router = require('express').Router()
-const catchAsync = require("../config/errors")
+const catchAsync = require("../middlewares/errors")
 const userController = require("../controllers/userController")
+const passport = require('passport')
 
 
 Router.post('/register',userController.register)
+Router.post('/login',passport.authenticate('local',{session:false}),userController.login)
 
 module.exports = Router
