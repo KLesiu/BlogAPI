@@ -3,8 +3,8 @@ const mongoose=require("mongoose")
 require("dotenv").config()
 const jwt = require("jsonwebtoken")
 let bodyParser = require("body-parser")
-let routes = require("./routes/route")
-
+let routes = require("./routes/auth")
+let auth = require('./routes/auth')
 
 // Mongoose connection
 mongoose.set("strictQuery",false)
@@ -21,7 +21,9 @@ const app = express()
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
 
-routes(app)
+
+app.use('/api/auth',auth)
+
 
 app.listen(3000,()=>{
     console.log("Server starts at port 3000")
