@@ -3,8 +3,8 @@ const mongoose=require("mongoose")
 require("dotenv").config()
 const jwt = require("jsonwebtoken")
 let bodyParser = require("body-parser")
-let routes = require("./routes/auth")
 let auth = require('./routes/auth')
+let post = require("./routes/post")
 const passportConfig = require('./config/passport').passportConfig()
 
 // Mongoose connection
@@ -25,6 +25,7 @@ app.use(bodyParser.json())
 
 
 app.use('/api/auth',auth)
+app.use('/api',post)
 
 
 app.listen(3000,()=>{
