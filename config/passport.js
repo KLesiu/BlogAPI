@@ -7,7 +7,7 @@ require("dotenv").config()
 
 
 function verifyCallback(payload, done) {
-    return User.findOne({_id: payload.id})
+    return User.findOne({_id: payload.id,admin:true})
         .then(user => {
             return done(null, user);
         })
