@@ -7,7 +7,7 @@ require("dotenv").config()
 
 
 function verifyCallback(payload, done) {
-    return User.findOne({_id: payload.id,admin:true})
+    return User.findOne({_id: payload.id})
         .then(user => {
             return done(null, user);
         })
@@ -16,7 +16,9 @@ function verifyCallback(payload, done) {
         });
 }
 
+
 exports.passportConfig= ()=>{
     passport.use(User.createStrategy())
     passport.use(new JWTStrategy({jwtFromRequest:ExtractJWT.fromAuthHeaderAsBearerToken(),secretOrKey:process.env.JWT_SECRET},verifyCallback))
+
 }

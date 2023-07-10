@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken")
 let bodyParser = require("body-parser")
 let auth = require('./routes/auth')
 let post = require("./routes/post")
+let comment = require("./routes/comment")
 const passportConfig = require('./config/passport').passportConfig()
 
 // Mongoose connection
@@ -26,6 +27,7 @@ app.use(bodyParser.json())
 
 app.use('/api/auth',auth)
 app.use('/api',post)
+app.use('/api',comment)
 
 
 app.listen(3000,()=>{
