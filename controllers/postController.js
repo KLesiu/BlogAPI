@@ -55,3 +55,12 @@ exports.update_post=[
         return res.status(200).json({post,message:"Post updated!"})
     })
 ]
+
+exports.delete_post=async(req,res,next)=>{
+    const post = await Post.findByIdAndDelete(req.params.id)
+    if(!post){
+        return res.status(404).json("Post with this id doesnt exist")
+    }
+    res.json("Post deleted!")
+
+}
