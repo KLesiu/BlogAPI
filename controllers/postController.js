@@ -28,6 +28,9 @@ exports.create_post=[
         if(!errors.isEmpty()){
             return res.json(errors.array())
         }
+        if(req.user.admin === false){
+            return res.json("You dont have permissions to add post")
+        }
         const title = req.body.title
         const body = req.body.body
         const published = req.body.published
@@ -45,6 +48,9 @@ exports.update_post=[
         if(!errors.isEmpty()){
             return res.json(errors.array())
         }
+        if(req.user.admin === false){
+            return res.json("You dont have permissions to update post")
+        }
         const title = req.body.title
         const body = req.body.body
         const published = req.body.published
@@ -58,6 +64,9 @@ exports.delete_post=async(req,res,next)=>{
     const post = await Post.findByIdAndDelete(req.params.id)
     if(!post){
         return res.status(404).json("Post with this id doesnt exist")
+    }
+    if(req.user.admin === false){
+        return res.json("You dont have permissions to delete post")
     }
     res.json("Post deleted!")
 
