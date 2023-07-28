@@ -7,6 +7,7 @@ let auth = require('./routes/auth')
 let post = require("./routes/post")
 let comment = require("./routes/comment")
 const passportConfig = require('./config/passport').passportConfig()
+const cors= require("cors")
 
 // Mongoose connection
 mongoose.set("strictQuery",false)
@@ -23,6 +24,7 @@ const app = express()
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
+app.use(cors())
 
 
 app.use('/api/auth',auth)
@@ -30,6 +32,6 @@ app.use('/api',post)
 app.use('/api',comment)
 
 
-app.listen(3000,()=>{
-    console.log("Server starts at port 3000")
+app.listen(3001,()=>{
+    console.log("Server starts at port 3001")
 })
