@@ -26,6 +26,7 @@ exports.post_comment=[
         const post = await Post.findById(req.params.id)
         const comment = await new Comment({
             user:req.user,
+            username: req.user.name,
             body:req.body.body,
             post:post._id
         }).save()
