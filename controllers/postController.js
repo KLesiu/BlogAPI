@@ -40,7 +40,7 @@ exports.create_post=[
 exports.update_post=[
     body("title","Title is required").trim().isLength({min:1}).escape(),
     body('body','Body is required').isLength({min:1}),
-    body('published','Published checkbox is required').isBoolean(),
+    
     asyncHandler(async(req,res,next)=>{
         const errors = validationResult(req)
         if(!errors.isEmpty()){
