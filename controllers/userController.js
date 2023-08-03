@@ -31,4 +31,9 @@ exports.login = async function(req,res,next){
     const token = jwt.sign({id:req.user._id},process.env.JWT_SECRET,{expiresIn:2500})
     return res.status(200).send({token:token,req:req.user})
 }
+exports.isAdmin=async function(req,res,next){
+    const admin = await User.findById(req.body._id)
+    return res.status(200).send(admin)
+}
+
 

@@ -22,15 +22,13 @@ exports.get_post=async(req,res,next)=>{
 exports.create_post=[
     body("title","Title is required").trim().isLength({min:1}).escape(),
     body('body','Body is required').isLength({min:1}),
-    body('published','Published checkbox is required').isBoolean(),
+   
     asyncHandler(async(req,res,next)=>{
         const errors = validationResult(req)
         if(!errors.isEmpty()){
             return res.json(errors.array())
         }
-        if(req.user.admin === false){
-            return res.json("You dont have permissions to add post")
-        }
+       
         const title = req.body.title
         const body = req.body.body
         const published = req.body.published
