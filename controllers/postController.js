@@ -63,9 +63,7 @@ exports.delete_post=async(req,res,next)=>{
     if(!post){
         return res.status(404).json("Post with this id doesnt exist")
     }
-    if(req.user.admin === false){
-        return res.json("You dont have permissions to delete post")
-    }
+    
     res.json("Post deleted!")
 
 }
