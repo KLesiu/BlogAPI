@@ -4,6 +4,7 @@ require('dotenv').config()
 const Post = require("../models/Post")
 
 
+
 exports.get_posts =async(req,res,next)=>{
     const allPosts = await Post.find().exec()
     const count = await Post.count()

@@ -11,4 +11,5 @@ Router.post('/posts/create',jwtAuth,postController.create_post)
 Router.post('/posts/:id/delete',jwtAuth,postController.delete_post)
 
 
+
 module.exports=Router

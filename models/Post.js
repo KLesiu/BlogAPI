@@ -6,6 +6,7 @@ const PostSchema = new Schema({
     title:{type:String,maxLength:50,required:true},
     body:{type:String,maxLength:100000,required:true},
     published:{type:Boolean,required:true},
+    image:{data:Buffer,contentType:String}
     
 },{
     timestamps:true
