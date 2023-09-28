@@ -1,18 +1,9 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema
 const UploadSchema = new mongoose.Schema({
-  fileName: {
-    type: String,
-    required: true,
-  },
-  file: {
-    data: Buffer,
-    contentType: String,
-  },
-  uploadTime: {
-    type: Date,
-    default: Date.now,
-  },
+  
+  image:{type:String},
+  post:{type:Schema.Types.ObjectId,ref:"Post",required:true},
 });
 
 module.exports = mongoose.model("Upload", UploadSchema);
