@@ -34,7 +34,7 @@ const multer = require("multer")
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "../frontend/src/components/uploads/");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
@@ -104,6 +104,15 @@ app.post('/api/posts/:id/upload',upload.single("file"), async(req,res)=>{
     res.json({status:"error"})
   }
   return res
+})
+app.get('/api/posts/:id/upload',async(req,res)=>{
+  try{
+    Upload.find({}).then(data=>{
+      res.send({status:"ok",data:data})
+    })
+  }catch(error){
+    res.json({status:error})
+  }
 })
 
 app.use('/api/auth',auth)
