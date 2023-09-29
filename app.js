@@ -58,7 +58,9 @@ app.post('/api/posts/:id/upload',upload.single("file"), async(req,res)=>{
   const imageName = req.file.filename;
   try{
     const post = await Post.findById(req.params.id)
-    await Upload.create({image:imageName,post:post._id})
+    const newUpload= await Upload.create({image:imageName,post:post._id})
+    await Post.updateOne({image:newUpload})
+    await Post.updateOne({imageSrc:imageName})
     res.json({status:"ok"})
   }catch(err){
     res.json({status:"error"})

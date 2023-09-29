@@ -6,7 +6,8 @@ const PostSchema = new Schema({
     title:{type:String,maxLength:50,required:true},
     body:{type:String,maxLength:100000,required:true},
     published:{type:Boolean,required:true},
-    image:{type:Schema.Types.ObjectId,ref:"Upload",required:false}
+    image:{type:Schema.Types.ObjectId,ref:"Upload",required:false},
+    imageSrc:{type:String,required:false}
     
 },{
     timestamps:true
