@@ -51,50 +51,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
 app.use(cors())
 
-// app.post('/api/posts/:id/upload',upload.single("image"),async(req,res)=>{
-//     console.log(req.body)
-//     const imageName = req.file.filename
-//     try {
-      
-//         //check if the request has an image or not
-//         if (!req.file) {
-//         console.log(false)
-//          return res.json({
-//             success: false,
-//             message: "You must provide at least 1 file"
-//           });
-//         } else {
-          
-            
-//             const post = await Post.findById(req.params.id)
-            
-//           let imageUploadObject = {
-//             image:imageName,
-            
-//             post:post._id
-//           };
-        
-          
-//           const uploadObject = new Upload(imageUploadObject);
-//           // saving the object into the database
-//           const uploadProcess = await uploadObject.save()
-//           const updatePost = await post.updateOne({image:uploadObject._id})
-//         }
-//       } catch (error) {
-        
-//         res.status(500).send("Server Error");
-//       }
-// })
-// app.get('/api/posts/:id/upload',async(req,res)=>{
-//   const PostWithPhoto = await Post.findOne({_id:req.params.id}).exec()
-//   if(PostWithPhoto===null) return res.status(404).json('Post not found')
-//   const photo = await Upload.findById(PostWithPhoto.image)
-//   return res.json(photo)
-// })
+
 
 app.post('/api/posts/:id/upload',upload.single("file"), async(req,res)=>{
-  console.log(req.body)
-  console.log(req.file)
+ 
   const imageName = req.file.filename;
   try{
     const post = await Post.findById(req.params.id)
