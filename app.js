@@ -56,7 +56,7 @@ app.use(cors())
 app.post('/api/posts/:id/upload',upload.single("file"), async(req,res)=>{
  
   const imageName = req.file.filename;
-  console.log(imageName)
+  
   try{
     console.log(req.params.id)
     const post = await Post.findById(req.params.id)
