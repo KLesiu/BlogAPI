@@ -8,7 +8,7 @@ let bodyParser = require("body-parser")
 let auth = require('./routes/auth')
 let post = require("./routes/post")
 let comment = require("./routes/comment")
-const passportConfig = require('./config/passport').passportConfig()
+
 const cors= require("cors")
 
 const Upload = require("./models/Upload")
@@ -24,11 +24,38 @@ async function main(){
     await mongoose.connect(mongoDB)
 }
 
-passportConfig
+// Passport
+const passport = require('passport')
+const User = require('./models/User')
+const ExtractJWT = require('passport-jwt').ExtractJwt
+const JWTStrategy = require('passport-jwt').Strategy
+require("dotenv").config()
+
+
+
+function verifyCallback(payload, done) {
+    return User.findOne({_id: payload.id})
+        .then(user => {
+            return done(null, user);
+        })
+        .catch(err => {
+            return done(err);
+        });
+}
+
+
+const passportConfig = ()=>{
+    passport.use(User.createStrategy())
+    passport.use(new JWTStrategy({jwtFromRequest:ExtractJWT.fromAuthHeaderAsBearerToken(),secretOrKey:process.env.JWT_SECRET},verifyCallback))
+
+}
+
+
 
 
 const app = express()
 
+passportConfig()
 // Multer options
 const multer = require("multer")
 
