@@ -61,7 +61,7 @@ const multer = require("multer")
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../frontend/src/components/uploads/");
+    cb(null, "./LGYM-BLOG/frontend/src/components/uploads/");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
