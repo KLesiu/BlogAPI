@@ -7,16 +7,15 @@ require('dotenv').config()
 exports.register=[
     body("name","Name is required").trim().isLength({min:1}).escape(),
     body("password","Password must be longer than 5 characters").isLength({min:6}),
-    body("cpassword","Repeat password must be the same as password").custom((value,{req})=>{
-        return value === req.body.password;
-    }),
+    body("cpassword","Repeat password must be the same as password").custom((value,{req})=>value === req.body.password
+    ),
     asyncHandler(async(req,res,next)=>{
         const errors = validationResult(req)
-        if(!errors.isEmpty()){
+        if(!errors.isEmpty())
             return res.status(404).send({
                 errors: errors.array()
             })
-        }
+        
         const name = req.body.name
         const admin = req.body.admin || false
         const password = req.body.password

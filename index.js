@@ -35,12 +35,8 @@ require("dotenv").config()
 
 function verifyCallback(payload, done) {
     return User.findOne({_id: payload.id})
-        .then(user => {
-            return done(null, user);
-        })
-        .catch(err => {
-            return done(err);
-        });
+        .then(user =>done(null, user))
+        .catch(err =>done(err));
 }
 
 
@@ -61,7 +57,7 @@ const multer = require("multer")
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./LGYM-BLOG/frontend/src/components/uploads/");
+    cb(null, "../frontend/src/components/uploads/");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
@@ -113,6 +109,5 @@ app.use('/api',post)
 app.use('/api',comment)
 
 
-app.listen(3001,()=>{
-    console.log("Server starts at port 3001")
-})
+app.listen(3001,()=>console.log("Server starts at port 3001")
+)

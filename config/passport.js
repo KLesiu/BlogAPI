@@ -8,12 +8,9 @@ require("dotenv").config()
 
 function verifyCallback(payload, done) {
     return User.findOne({_id: payload.id})
-        .then(user => {
-            return done(null, user);
-        })
-        .catch(err => {
-            return done(err);
-        });
+        .then(user =>done(null, user))
+        .catch(err =>done(err)
+        );
 }
 
 

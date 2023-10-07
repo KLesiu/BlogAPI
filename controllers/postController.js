@@ -8,14 +8,14 @@ const Post = require("../models/Post")
 exports.get_posts =async(req,res,next)=>{
     const allPosts = await Post.find().exec()
     const count = await Post.count()
-    if(count==0) return res.status(404).json("")
+    if(count==0)res.status(404).json("")
      return res.status(200).json(allPosts)
 
 }
 
 exports.get_post=async(req,res,next)=>{
     const post = await Post.findOne({_id:req.params.id}).exec()
-    if(post===null) return res.status(404).json('Post not found')
+    if(post===null)res.status(404).json('Post not found')
     return res.status(200).json(post)
 }
 
@@ -26,9 +26,8 @@ exports.create_post=[
    
     asyncHandler(async(req,res,next)=>{
         const errors = validationResult(req)
-        if(!errors.isEmpty()){
-            return res.json(errors.array())
-        }
+        if(!errors.isEmpty()) res.json(errors.array())
+        
        
         const title = req.body.title
         const body = req.body.body
@@ -44,12 +43,10 @@ exports.update_post=[
     
     asyncHandler(async(req,res,next)=>{
         const errors = validationResult(req)
-        if(!errors.isEmpty()){
-            return res.json(errors.array())
-        }
-        if(req.user.admin === false){
-            return res.json("You dont have permissions to update post")
-        }
+        if(!errors.isEmpty())res.json(errors.array())
+        
+        if(req.user.admin === false) res.json("You dont have permissions to update post")
+        
         const title = req.body.title
         const body = req.body.body
         const published = req.body.published
@@ -61,9 +58,8 @@ exports.update_post=[
 
 exports.delete_post=async(req,res,next)=>{
     const post = await Post.findByIdAndDelete(req.params.id)
-    if(!post){
-        return res.status(404).json("Post with this id doesnt exist")
-    }
+    if(!post) return res.status(404).json("Post with this id doesnt exist")
+    
     
     res.json("Post deleted!")
 
